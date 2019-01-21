@@ -1,0 +1,158 @@
+<!doctype html>
+<html>
+
+<head>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+   <!-- Bootstrap CSS -->
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+      crossorigin="anonymous">
+
+   <title>Вариант 7</title>
+   <style>
+      tr.active {
+         background-color: lightsalmon;
+      }
+   </style>
+</head>
+
+<body>
+   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+      crossorigin="anonymous"></script>
+   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+      crossorigin="anonymous"></script>
+   <script src="Kyrs.js"></script>
+
+
+   <div class="container">
+      <div class="row mt-5">
+         <div class="form-group">
+            <label for="sel1">Выбери действие</label>
+            <select class="form-control" id="sel1">
+               <option value="1">Добавить пациента</option>
+               <option value="2">Найти</option>
+               <option value="3">Удалить</option>
+            </select>
+         </div>
+      </div>
+
+      <div class="row mt-2" id="newPatient">
+         <form>         
+            <div class="form-row">
+               <div class="form-group col-md-6">
+                  <label>ФИО</label>
+                  <input type="text" class="form-control" id="inputName">
+               </div>
+               <div class="form-group col-md-2">
+                  <label>№ пациента</label>
+                  <input type="text" class="form-control" id="inputPatientNum">
+               </div>
+               <div class="form-group col-md-2">
+                  <label for="inputZip">№ палаты</label>
+                  <input type="text" class="form-control" id="inputWard">
+               </div>
+            </div>
+            <div class="form-row">
+               <div class="form-group col-md-6">
+                  <label">Диагноз</label>
+                  <input type="text" class="form-control" id="inputDiagnosis">
+               </div>
+            </div>
+            <a href="#" id="addNewPatient" class="btn btn-primary">Добавить</a>
+         </form>
+      </div>
+
+      <div class="row mt-2" id="findPatient" style="display: none">
+         <form>         
+            <div class="form-row">
+               <div class="form-group col-md-6">
+                  <label>№ пациента</label>
+                  <input type="text" class="form-control" id="inputFindPatient">
+               </div>
+            </div>
+            <a href="#" id="findPatientAction" class="btn btn-primary">Найти</a>
+         </form>
+      </div>
+
+      <div class="row mt-2" id="removePatient" style="display: none">
+         <form>         
+            <div class="form-row">
+               <div class="form-group col-md-6">
+                  <label>№ пациента</label>
+                  <input type="text" class="form-control" id="inputRemovePatient">
+               </div>
+            </div>
+            <a href="#" id="removePatientAction" class="btn btn-primary">Удалить</a>
+         </form>
+      </div>
+
+      <div class="row mt-5">
+         <table class="table table-condensed">
+            <thead>
+               <tr>
+                  <th>Номер</th>
+                  <th>ФИО</th>
+                  <th>Диагноз</th>
+                  <th>№ палаты</th>
+               </tr>
+            </thead>
+            <tbody id="tBody">
+            </tbody>
+         </table> 
+      </div>
+   </div>
+
+
+   <script type="text/javascript">
+      let patient = new Patient();
+
+      patient.printPatient();
+
+      $('#addNewPatient').click(function() {
+         let newPatient = {
+            patientNum: $('#inputPatientNum').val(),
+            name:       $('#inputName').val(),
+            diagnosis:  $('#inputDiagnosis').val(),
+            ward:       $('#inputWard').val(),
+         };
+
+         patient.add(newPatient);
+         patient.printPatient();
+      });
+
+      $('#findPatientAction').click(function() {
+         patient.findPatient($('#inputFindPatient').val());
+      });
+
+      $('#removePatientAction').click(function() {
+         patient.removePatient($('#inputRemovePatient').val());
+         patient.printPatient();
+      });
+
+      $('select').on('change', function() {
+
+         switch(this.value) {
+            case '1':
+               $("#newPatient").show();
+               $("#findPatient").hide();
+               $("#removePatient").hide();
+               break;   
+            case '2':
+               $("#newPatient").hide();
+               $("#findPatient").show();
+               $("#removePatient").hide();
+               break;
+            case '3':
+               $("#newPatient").hide();
+               $("#findPatient").hide();
+               $("#removePatient").show();
+               break;           
+         }
+      });
+   </script>
+</body>
+</html>
