@@ -26,15 +26,15 @@
             <h4>Исходные данные</h4>
             <form>
                <div class="form-row">
-                  <div class="form-group col-md-1">
+                  <div class="form-group col-md-2">
                      <label>x</label>
                      <input type="text" class="form-control" id="inputX1">
                   </div>
-                  <div class="form-group col-md-1">
+                  <div class="form-group col-md-2">
                      <label>a</label>
                      <input type="text" class="form-control" id="inputA1">
                   </div>
-                  <div class="form-group col-md-1">
+                  <div class="form-group col-md-2">
                      <label>b</label>
                      <input type="text" class="form-control" id="inputB1">
                   </div>
@@ -57,11 +57,11 @@
             <h4>Исходные данные</h4>
             <form>
                <div class="form-row">
-                  <div class="form-group col-md-1">
+                  <div class="form-group col-md-2">
                      <label>x</label>
                      <input type="text" class="form-control" id="inputX2">
                   </div>
-                  <div class="form-group col-md-1">
+                  <div class="form-group col-md-2">
                      <label>a</label>
                      <input type="text" class="form-control" id="inputA2">
                   </div>
@@ -81,44 +81,84 @@
             <h4>Задание 3</h4>
          </div>
          <div class="panel-body">
-            <h4>Исходные данные</h4>
-            <form>
+            <div class="form-group">
+               <label for="sel1">Выбери действие</label>
+               <select class="form-control" id="sel1">
+                  <option value="1">Вывести массив</option>
+                  <option value="2">Рассчитать "+" и "*"</option>
+                  <option value="3">Отсортировать по возврастанию</option>
+                  <option value="4">Добавить в массив элемент</option>
+                  <option value="5">Удалить из массива элемент</option>
+               </select>
+            </div>
+            <fieldset disabled id="selection2" style="display: none">
                <div class="form-row">
-                  <div class="form-group col-md-1">
-                     <label>x</label>
-                     <input type="text" class="form-control" id="inputX2">
+                  <div class="form-group col-md-2">
+                     <label>Сумма</label>
+                     <input type="text" id="summResId" class="form-control">
                   </div>
-                  <div class="form-group col-md-1">
-                     <label>a</label>
-                     <input type="text" class="form-control" id="inputA2">
+                  <div class="form-group col-md-2">
+                     <label>Произведение</label>
+                     <input type="text" id="multiplyResId" class="form-control">
                   </div>
                </div>
-               <a href="#" id="calcTask2" class="btn btn-primary">Посчитать</a>
+            </fieldset>
+            <form id="selection4" style="display: none">
+               <fieldset>
+                  <div class="form-row">
+                     <div class="form-group col-md-2">
+                        <label>Первое число</label>
+                        <input type="text" id="inputAddFirst" class="form-control">
+                     </div>
+                     <div class="form-group col-md-2">
+                        <label>Второе число</label>
+                        <input type="text" id="inputAddSecond" class="form-control">
+                     </div>
+                     <div class="form-group col-md-2">
+                        <label>Метод</label>
+                        <select class="form-control" id="sel2">
+                           <option value="1">splice()</option>
+                           <option value="2">unshift()</option>
+                           <option value="3">push()</option>
+                        </select>
+                     </div>
+                  </div>
+               </fieldset>
+               <a href="#" id="calcTask4" class="btn btn-primary">Добавить</a>
             </form>
-            <div class="mt-5">
-               <table class="table table-condensed">
-                  <thead>
-                     <tr>
-                        <th>Номер</th>
-                        <th>Значение</th>
-                     </tr>
-                  </thead>
-                  <tbody id="tBody">
-                  </tbody>
-               </table> 
-            </div>
-         </div>
-         <div class="panel-footer">
-            <h4>Ответ</h4>
-            <div id="resultTask2">
-            </div>
+            <form id="selection5" style="display: none">
+               <fieldset>
+                  <div class="form-group">
+                     <label>Метод</label>
+                     <select class="form-control" id="sel3">
+                        <option value="1">splice()</option>
+                        <option value="2">shift()</option>
+                        <option value="3">pop()</option>
+                     </select>
+                  </div>
+               </fieldset>
+               <a href="#" id="calcTask5" class="btn btn-primary">Удалить</a>
+            </form>
+            <table class="table table-condensed mt-3" id="talbeId">
+               <thead>
+                  <tr>
+                     <th>Номер</th>
+                     <th>Значение</th>
+                  </tr>
+               </thead>
+               <tbody id="tBody">
+               </tbody>
+            </table>
          </div>
       </div>
    </div>
 
 
    <script type="text/javascript">
-      $('#calcTask1').click(function() {
+
+      // Задание 1 
+      $('#calcTask1').click(function(e) {
+         e.preventDefault();
          let xValue = $('#inputX1').val();
          let aValue = $('#inputA1').val();
          let bValue = $('#inputB1').val();
@@ -140,7 +180,9 @@
          resultField.append(result);
       });
 
-      $('#calcTask2').click(function() {
+      // Задание 2
+      $('#calcTask2').click(function(e) {
+         e.preventDefault();
          let xValue = $('#inputX2').val();
          let aValue = $('#inputA2').val();
          let resultField = $('#resultTask2');
@@ -163,6 +205,125 @@
          }
          result = Math.round(result * 1000) / 1000;
          resultField.append(result);
+      });
+
+      // Задание 3
+      var myArray = ['2019', '15', '-3.5', '13.37', '-207'];
+      printArray(myArray);
+
+      function printArray(arrayVar) {
+         var tableBody;
+         if (arrayVar.length == 0) {
+            $('#tBody').empty();
+         } else {
+            arrayVar.forEach((element, index) => {
+               tableBody += 
+               `
+                  <tr>
+                     <td>${index}</td>
+                     <td>${element}</td>
+                  </tr>
+               `;
+            });
+            $('#tBody').html(tableBody);
+         }
+      }
+
+      function calcSummAndMultiply(arrayVar) {
+         let summ = 0;
+         let multiply = 1;
+         if (arrayVar.length != 0) {
+            arrayVar.forEach(element => {
+               summ += parseFloat(element);
+               multiply *= element;
+            });
+         }
+
+         $('#summResId').val(summ);
+         $('#multiplyResId').val(multiply);
+      }
+
+      function addNewElement(value1, value2, method) {
+         switch (method) {
+            case '1':
+               myArray.splice((myArray.length / 2), 0, value1, value2);
+               break;
+            case '2':
+               myArray.unshift(value1, value2);
+               break;
+            case '3':
+               myArray.push(value1, value2);
+               break;
+         }
+      }
+
+      function removeElement(method) {
+         switch (method) {
+            case '1':
+               myArray.splice((myArray.length / 2), 1);
+               break;
+            case '2':
+               myArray.shift();
+               break;
+            case '3':
+               myArray.pop();
+               break;
+         }
+      }
+
+      $('#calcTask4').click(function(e) {
+         e.preventDefault();
+         let val1 = $('#inputAddFirst').val();
+         let val2 = $('#inputAddSecond').val();
+         let method = $('#sel2').val();
+         addNewElement(val1, val2, method);
+         printArray(myArray);
+      });
+
+      $('#calcTask5').click(function(e) {
+         e.preventDefault();
+         let method = $('#sel3').val();
+         removeElement(method);
+         printArray(myArray);
+      });
+
+      $('#sel1').on('change', function() {
+         switch(this.value) {
+            case '1':
+               $('#talbeId').show();
+               $('#selection2').hide();
+               $('#selection4').hide();
+               $('#selection5').hide();
+               printArray(myArray);
+               break;
+            case '2':
+               $('#talbeId').show();
+               $('#selection2').show();
+               $('#selection4').hide();
+               $('#selection5').hide();
+               calcSummAndMultiply(myArray);
+               break;
+            case '3':
+               $('#selection2').hide();
+               $('#selection4').hide();
+               $('#selection5').hide();
+               let sortedArray = Array.from(myArray);
+               sortedArray.sort(function(firstElement, secondElement) {
+                  return firstElement - secondElement;
+               });
+               printArray(sortedArray);
+               break;
+            case '4':
+               $('#selection2').hide();
+               $('#selection4').show();
+               $('#selection5').hide();
+               break;
+            case '5':
+               $('#selection2').hide();
+               $('#selection4').hide();
+               $('#selection5').show();
+               break;
+         }
       });
       
    </script>
