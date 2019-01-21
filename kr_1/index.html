@@ -1,0 +1,170 @@
+<!doctype html>
+<html>
+
+<head>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+   <!-- Bootstrap CSS -->
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+      crossorigin="anonymous">
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+   <title>Вариант 7</title>
+</head>
+
+<body>
+   <div class="container">
+      <h2>Вариант 10</h2>
+      <div class="panel panel-primary mt-5">
+         <div class="panel-heading">
+            <h4>Задание 1</h4>
+         </div>
+         <div class="panel-body">
+            <h4>Исходные данные</h4>
+            <form>
+               <div class="form-row">
+                  <div class="form-group col-md-1">
+                     <label>x</label>
+                     <input type="text" class="form-control" id="inputX1">
+                  </div>
+                  <div class="form-group col-md-1">
+                     <label>a</label>
+                     <input type="text" class="form-control" id="inputA1">
+                  </div>
+                  <div class="form-group col-md-1">
+                     <label>b</label>
+                     <input type="text" class="form-control" id="inputB1">
+                  </div>
+               </div>
+               <a href="#" id="calcTask1" class="btn btn-primary">Посчитать</a>
+            </form>
+         </div>
+         <div class="panel-footer">
+            <h4>Ответ</h4>
+            <div id="resultTask1">
+            </div>
+         </div>
+      </div>
+
+      <div class="panel panel-primary mt-5">
+         <div class="panel-heading">
+            <h4>Задание 2</h4>
+         </div>
+         <div class="panel-body">
+            <h4>Исходные данные</h4>
+            <form>
+               <div class="form-row">
+                  <div class="form-group col-md-1">
+                     <label>x</label>
+                     <input type="text" class="form-control" id="inputX2">
+                  </div>
+                  <div class="form-group col-md-1">
+                     <label>a</label>
+                     <input type="text" class="form-control" id="inputA2">
+                  </div>
+               </div>
+               <a href="#" id="calcTask2" class="btn btn-primary">Посчитать</a>
+            </form>
+         </div>
+         <div class="panel-footer">
+            <h4>Ответ</h4>
+            <div id="resultTask2">
+            </div>
+         </div>
+      </div>
+
+      <div class="panel panel-primary mt-5">
+         <div class="panel-heading">
+            <h4>Задание 3</h4>
+         </div>
+         <div class="panel-body">
+            <h4>Исходные данные</h4>
+            <form>
+               <div class="form-row">
+                  <div class="form-group col-md-1">
+                     <label>x</label>
+                     <input type="text" class="form-control" id="inputX2">
+                  </div>
+                  <div class="form-group col-md-1">
+                     <label>a</label>
+                     <input type="text" class="form-control" id="inputA2">
+                  </div>
+               </div>
+               <a href="#" id="calcTask2" class="btn btn-primary">Посчитать</a>
+            </form>
+            <div class="mt-5">
+               <table class="table table-condensed">
+                  <thead>
+                     <tr>
+                        <th>Номер</th>
+                        <th>Значение</th>
+                     </tr>
+                  </thead>
+                  <tbody id="tBody">
+                  </tbody>
+               </table> 
+            </div>
+         </div>
+         <div class="panel-footer">
+            <h4>Ответ</h4>
+            <div id="resultTask2">
+            </div>
+         </div>
+      </div>
+   </div>
+
+
+   <script type="text/javascript">
+      $('#calcTask1').click(function() {
+         let xValue = $('#inputX1').val();
+         let aValue = $('#inputA1').val();
+         let bValue = $('#inputB1').val();
+         let resultField = $('#resultTask1');
+         let result;
+         resultField.empty();
+         
+         if (xValue <= 3.4) {
+            result = (aValue - xValue) / bValue;
+            resultField.append("Первая ветвь вычисления / x <= 3.4<br>");
+         } else if (xValue > 3.4) {
+            result = (xValue - aValue) / bValue;
+            resultField.append("Вторая ветвь вычисления / x > 3.4<br>");
+         } else {
+            resultField.append("Введено неккоректное число x");
+         }
+
+         result = Math.round(result * 1000) / 1000;
+         resultField.append(result);
+      });
+
+      $('#calcTask2').click(function() {
+         let xValue = $('#inputX2').val();
+         let aValue = $('#inputA2').val();
+         let resultField = $('#resultTask2');
+         let result;
+         resultField.empty();
+         
+         switch(aValue) {
+            case '1':
+               result = Math.sin(xValue);
+               resultField.append("Первая ветвь вычисления / a = 1<br>");
+               break;
+            case '2':
+               result = Math.pow(xValue, -3);
+               resultField.append("Вторая ветвь вычисления / a = 2<br>");
+               break;
+            case '3':
+               result = Math.sqrt(xValue);
+               resultField.append("Третья ветвь вычисления / a = 3<br>");
+               break;
+         }
+         result = Math.round(result * 1000) / 1000;
+         resultField.append(result);
+      });
+      
+   </script>
+</body>
+</html>
