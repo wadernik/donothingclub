@@ -1,0 +1,150 @@
+<!doctype html>
+<html>
+
+<head>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+   <!-- Bootstrap CSS -->
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+      crossorigin="anonymous">
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+   <title>КР 2</title>
+</head>
+
+<body>
+   <div class="container">
+      <h2>Вариант 3</h2>
+      <div class="panel panel-primary mt-5">
+         <div class="panel-heading">
+            <h4>Задание 1</h4>
+         </div>
+         <div class="panel-body">
+            <fieldset disabled>
+               <div class="form-row">
+                  <div class="form-group col-md-2">
+                     <label>К-во отрицательных</label>
+                     <input type="text" id="negativesId" class="form-control">
+                  </div>
+               </div>
+            </fieldset>
+            <table class="table table-condensed mt-3" id="talbeId">
+               <thead>
+                  <tr>
+                     <th>Номер</th>
+                     <th>Значение</th>
+                  </tr>
+               </thead>
+               <tbody id="tBody">
+               </tbody>
+            </table>
+         </div>
+      </div>
+      <div class="panel panel-primary mt-5">
+         <div class="panel-heading">
+            <h4>Задание 2</h4>
+         </div>
+         <div class="panel-body">
+            <fieldset disabled>
+               <div class="form-row">
+                  <div class="form-group col-md-3">
+                     <label>Дата</label>
+                     <input type="text" id="date" class="form-control">
+                  </div>
+                  <div class="form-group col-md-3">
+                     <label>День</label>
+                     <input type="text" id="day" class="form-control">
+                  </div>
+               </div>
+               <div class="form-row">
+                  <div class="form-group col-md-3">
+                     <label>Текущее время</label>
+                     <input type="text" id="time" class="form-control">
+                  </div>
+               </div>
+            </fieldset>
+         </div>
+      </div>
+   </div>
+
+
+   <script type="text/javascript">
+      // Задание 1
+      //
+      // Задание пустого массива и заполнения его через функцию 
+      // for случайными значениями. 
+      var myArray = [];
+      
+      function generateRadnomArray() {
+         let i;
+         let negativesAmount = 0;
+         let num;
+         for (i = 0; i < 11; i++) {
+            num = getRndInt(-10, 10);
+            if (num < 0) {
+               negativesAmount += 1;
+            }
+            myArray.push(num);
+         }
+         $('#negativesId').val(negativesAmount);
+      }
+      
+      // Функция-генератор случайных чисел, взято из примера
+      function getRndInt(min, max) {
+         return Math.floor(Math.random() * (max - min + 1)) + min;
+      }
+
+      // Задание массива и его вывод
+      generateRadnomArray();
+      printArray(myArray);
+
+      // Функция вывода массива.
+      // С помощью jquery в таблицу внутрь <tbody> с помощью 
+      // id этого тега добавляются новые элементы. 
+      // Каждая строка таблицы - пара из номера элемента и его значения
+      function printArray(arrayVar) {
+         var tableBody;
+         if (arrayVar.length == 0) {
+            $('#tBody').empty();
+         } else {
+            arrayVar.forEach((element, index) => {
+               tableBody += 
+               `
+                  <tr>
+                     <td>${index}</td>
+                     <td>${element}</td>
+                  </tr>
+               `;
+            });
+            $('#tBody').html(tableBody);
+         }
+      }
+
+      // Задание 2
+
+      function validateNum(num) {
+         if (num < 10) {
+            num = "0" + num;
+         }
+         return num;
+      }
+
+      // Date(year, month[, day[, hour[, minute[, second[, millisecond]]]]]);
+      // months [0-11]
+      let myDate = new Date(2013, 0, 12, 12, 11, 23);
+      let monthValue = validateNum(myDate.getMonth() + 1);
+      let days = ["Воскресенье", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"];
+      let hours = validateNum(myDate.getHours());
+      let minutes = validateNum(myDate.getMinutes());
+      let secs = validateNum(myDate.getSeconds());
+      
+      $('#date').val(myDate.getDate() + "." + monthValue + "." + myDate.getFullYear());
+      $('#day').val(days[myDate.getDay()]);
+      $('#time').val(hours + ":" + minutes + ":" + secs);
+      
+   </script>
+</body>
+</html>
